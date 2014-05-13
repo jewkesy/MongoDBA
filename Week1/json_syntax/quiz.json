@@ -1,0 +1,31 @@
+// <person>
+//   <name>John</name>
+//   <age>25</age>
+//   <address>
+//     <city>New York</city>
+//     <postalCode>10021</postalCode>
+//   </address>
+//   <phones>
+//     <phone type="home">212-555-1234</phone>
+//     <phone type="mobile">646-555-1234</phone>
+//   </phones>
+// </person>
+
+
+{
+  "name": "John",
+  "age": 25,
+  "address": {
+    "city" : "New York",
+    "postalCode": "10021"    
+  },
+  "phones" : [{
+      "type" : "home",
+      "phone" : "212-555-1234"
+    },
+    {
+      "type" : "mobile",
+      "phone" : "646-555-1234"
+    }
+  ]
+}
