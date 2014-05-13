@@ -69,3 +69,10 @@ AC3 Case Black
 Result: Invalid
 
 bye
+
+
+
+	db.products.find({},{name:1,_id:0}).sort({name:1})
+X	var c = db.products.find({},{name:1,_id:0}).sort({name:1}); while( c.hasNext() ) print( c.next().name);
+X	var c = db.products.find({}).sort({name:1}); c.forEach( function(doc){ print(doc.name) } );
+	var c = db.products.find({}).sort({name:-1}); while( c.hasNext() ) print( c.next().name);
