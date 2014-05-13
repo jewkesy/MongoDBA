@@ -1,0 +1,3 @@
+db.isMaster().maxBsonObjectSize
+
+16777216
