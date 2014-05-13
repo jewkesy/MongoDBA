@@ -1,3 +1,5 @@
+// mongoimport -d pcat -c products < products.json
+
 db.products.find({type:"case"}).count()
 
 3
