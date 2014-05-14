@@ -1,0 +1,71 @@
+> 
+> p.find({}, {for:1})
+{ "_id" : "ac3" }
+{ "_id" : "ac7" }
+{ "_id" : ObjectId("507d95d5719dbef170f15bf9"), "for" : [ "ac3", "ac7", "ac9" ] }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfa") }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfb"), "for" : [ "ac3", "ac7", "ac9", "qp7", "qp8", "qp9" ] }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfc"), "for" : "ac3" }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfd"), "for" : "ac3" }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfe") }
+{ "_id" : ObjectId("507d95d5719dbef170f15bff") }
+{ "_id" : ObjectId("507d95d5719dbef170f15c00") }
+{ "_id" : ObjectId("507d95d5719dbef170f15c01") }
+{ "_id" : "ac9" }
+>
+> p.ensureIndex({"for":1})
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+>
+> p.find({"for":"ac3"}, {for:1})
+{ "_id" : ObjectId("507d95d5719dbef170f15bf9"), "for" : [ "ac3", "ac7", "ac9" ] }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfb"), "for" : [ "ac3", "ac7", "ac9", "qp7", "qp8", "qp9" ] }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfc"), "for" : "ac3" }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfd"), "for" : "ac3" }
+> 
+> 
+> p.find({"for":"ac3"}, {for:1}).explain()
+{
+	"cursor" : "BtreeCursor for_1",
+	"isMultiKey" : true,
+	"n" : 4,
+	"nscannedObjects" : 4,
+	"nscanned" : 4,
+	"nscannedObjectsAllPlans" : 4,
+	"nscannedAllPlans" : 4,
+	"scanAndOrder" : false,
+	"indexOnly" : false,
+	"nYields" : 0,
+	"nChunkSkips" : 0,
+	"millis" : 0,
+	"indexBounds" : {
+		"for" : [
+			[
+				"ac3",
+				"ac3"
+			]
+		]
+	},
+	"server" : "mbp.local:27017",
+	"filterSet" : false
+}
+> 
+
+Q1: How many are there?
+Q2: Run an explain plan on the above query. How many records were scanned?
+Q3: Was an index used?
+
+	Q1: 0
+	Q1: 1
+	Q1: 3
+X	Q1 : 4
+	Q2 : 1
+X	Q2 : 4
+	Q2 : 5
+	Q2 : 12
+	Q3 : No
+X	Q3 : Yes
