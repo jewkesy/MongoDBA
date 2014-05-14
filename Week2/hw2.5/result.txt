@@ -1,0 +1,8 @@
+> db.products.update({"for":"ac3"}, {$inc: {price: 2}}, {multi: true})
+WriteResult({ "nMatched" : 4, "nUpserted" : 0, "nModified" : 4 })
+> homework.c()
+89.5954.5
+
+
+
+NOTE that it takes into consideration the insert from hw2.3!!!
