@@ -1,0 +1,99 @@
+mbp:handouts Daryl$ mongoimport --db pcat -c products --drop < products.json 
+connected to: 127.0.0.1
+2014-05-14T15:45:20.958+0100 dropping: pcat.products
+2014-05-14T15:45:20.964+0100 check 9 11
+2014-05-14T15:45:20.964+0100 imported 11 objects
+mbp:handouts Daryl$ mongo pcat
+MongoDB shell version: 2.6.1
+connecting to: pcat
+Server has startup warnings: 
+2014-05-14T14:34:15.676+0100 [initandlisten] 
+2014-05-14T14:34:15.676+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+2014-05-14T14:34:15.694+0100 [initandlisten] 
+2014-05-14T14:34:15.694+0100 [initandlisten] ** WARNING: mongod started without --replSet yet 1 documents are present in local.system.replset
+2014-05-14T14:34:15.694+0100 [initandlisten] **          Restart with --replSet unless you are doing maintenance and no other clients are connected.
+2014-05-14T14:34:15.694+0100 [initandlisten] **          The TTL collection monitor will not start because of this.
+2014-05-14T14:34:15.694+0100 [initandlisten] **          For more info see http://dochub.mongodb.org/core/ttlcollections
+2014-05-14T14:34:15.694+0100 [initandlisten] 
+> db.products.count()
+11
+> exit
+bye
+mbp:handouts Daryl$ mongo --shell pcat homework2.js 
+MongoDB shell version: 2.6.1
+connecting to: pcat
+type "help" for help
+Server has startup warnings: 
+2014-05-14T14:34:15.676+0100 [initandlisten] 
+2014-05-14T14:34:15.676+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+2014-05-14T14:34:15.694+0100 [initandlisten] 
+2014-05-14T14:34:15.694+0100 [initandlisten] ** WARNING: mongod started without --replSet yet 1 documents are present in local.system.replset
+2014-05-14T14:34:15.694+0100 [initandlisten] **          Restart with --replSet unless you are doing maintenance and no other clients are connected.
+2014-05-14T14:34:15.694+0100 [initandlisten] **          The TTL collection monitor will not start because of this.
+2014-05-14T14:34:15.694+0100 [initandlisten] **          For more info see http://dochub.mongodb.org/core/ttlcollections
+2014-05-14T14:34:15.694+0100 [initandlisten] 
+> db.products.insert({ "_id" : "ac9", "name" : "AC9 Phone", "brand" : "ACME", "type" : "phone", "price" : 333, "warranty_years" : 0.25, "available" : true })
+WriteResult({ "nInserted" : 1 })
+> 
+> 
+> 
+> p = db.products
+pcat.products
+> p.find()
+{ "_id" : "ac3", "name" : "AC3 Phone", "brand" : "ACME", "type" : "phone", "price" : 200, "warranty_years" : 1, "available" : true }
+{ "_id" : "ac7", "name" : "AC7 Phone", "brand" : "ACME", "type" : "phone", "price" : 320, "warranty_years" : 1, "available" : false }
+{ "_id" : ObjectId("507d95d5719dbef170f15bf9"), "name" : "AC3 Series Charger", "type" : [ "accessory", "charger" ], "price" : 19, "warranty_years" : 0.25, "for" : [ "ac3", "ac7", "ac9" ] }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfa"), "name" : "AC3 Case Green", "type" : [ "accessory", "case" ], "color" : "green", "price" : 12, "warranty_years" : 0 }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfb"), "name" : "Phone Extended Warranty", "type" : "warranty", "price" : 38, "warranty_years" : 2, "for" : [ "ac3", "ac7", "ac9", "qp7", "qp8", "qp9" ] }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfc"), "name" : "AC3 Case Black", "type" : [ "accessory", "case" ], "color" : "black", "price" : 12.5, "warranty_years" : 0.25, "available" : false, "for" : "ac3" }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfd"), "name" : "AC3 Case Red", "type" : [ "accessory", "case" ], "color" : "red", "price" : 12, "warranty_years" : 0.25, "available" : true, "for" : "ac3" }
+{ "_id" : ObjectId("507d95d5719dbef170f15bfe"), "name" : "Phone Service Basic Plan", "type" : "service", "monthly_price" : 40, "limits" : { "voice" : { "units" : "minutes", "n" : 400, "over_rate" : 0.05 }, "data" : { "units" : "gigabytes", "n" : 20, "over_rate" : 1 }, "sms" : { "units" : "texts sent", "n" : 100, "over_rate" : 0.001 } }, "term_years" : 2 }
+{ "_id" : ObjectId("507d95d5719dbef170f15bff"), "name" : "Phone Service Core Plan", "type" : "service", "monthly_price" : 60, "limits" : { "voice" : { "units" : "minutes", "n" : 1000, "over_rate" : 0.05 }, "data" : { "n" : "unlimited", "over_rate" : 0 }, "sms" : { "n" : "unlimited", "over_rate" : 0 } }, "term_years" : 1 }
+{ "_id" : ObjectId("507d95d5719dbef170f15c00"), "name" : "Phone Service Family Plan", "type" : "service", "monthly_price" : 90, "limits" : { "voice" : { "units" : "minutes", "n" : 1200, "over_rate" : 0.05 }, "data" : { "n" : "unlimited", "over_rate" : 0 }, "sms" : { "n" : "unlimited", "over_rate" : 0 } }, "sales_tax" : true, "term_years" : 2 }
+{ "_id" : ObjectId("507d95d5719dbef170f15c01"), "name" : "Cable TV Basic Service Package", "type" : "tv", "monthly_price" : 50, "term_years" : 2, "cancel_penalty" : 25, "sales_tax" : true, "additional_tarriffs" : [ { "kind" : "federal tarriff", "amount" : { "percent_of_service" : 0.06 } }, { "kind" : "misc tarriff", "amount" : 2.25 } ] }
+{ "_id" : "ac9", "name" : "AC9 Phone", "brand" : "ACME", "type" : "phone", "price" : 333, "warranty_years" : 0.25, "available" : true }
+> p.find().count()
+12
+> 
+> x = {"_id": ObjectId("507d95d5719dbef170f15c00")}
+{ "_id" : ObjectId("507d95d5719dbef170f15c00") }
+> p.find(x)
+{ "_id" : ObjectId("507d95d5719dbef170f15c00"), "name" : "Phone Service Family Plan", "type" : "service", "monthly_price" : 90, "limits" : { "voice" : { "units" : "minutes", "n" : 1200, "over_rate" : 0.05 }, "data" : { "n" : "unlimited", "over_rate" : 0 }, "sms" : { "n" : "unlimited", "over_rate" : 0 } }, "sales_tax" : true, "term_years" : 2 }
+> 
+> p.update(x, {"$set" : {"term_years": 3 }})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> p.find(x)
+{ "_id" : ObjectId("507d95d5719dbef170f15c00"), "name" : "Phone Service Family Plan", "type" : "service", "monthly_price" : 90, "limits" : { "voice" : { "units" : "minutes", "n" : 1200, "over_rate" : 0.05 }, "data" : { "n" : "unlimited", "over_rate" : 0 }, "sms" : { "n" : "unlimited", "over_rate" : 0 } }, "sales_tax" : true, "term_years" : 3 }
+>
+> p.update(x, {"$set" : {"limits.sms.over_rate": 0.01 }})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> 
+> 
+> 
+> p.find(x).pretty()
+{
+	"_id" : ObjectId("507d95d5719dbef170f15c00"),
+	"name" : "Phone Service Family Plan",
+	"type" : "service",
+	"monthly_price" : 90,
+	"limits" : {
+		"voice" : {
+			"units" : "minutes",
+			"n" : 1200,
+			"over_rate" : 0.05
+		},
+		"data" : {
+			"n" : "unlimited",
+			"over_rate" : 0
+		},
+		"sms" : {
+			"n" : "unlimited",
+			"over_rate" : 0.01
+		}
+	},
+	"sales_tax" : true,
+	"term_years" : 3
+}
+> homework.b()
+0.050.019031
+> 
