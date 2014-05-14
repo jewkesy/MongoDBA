@@ -1,0 +1,4 @@
+> p = db.products
+> p.find({ "limits.voice" : {"$exists" : true}  }, { "_id": 0, "limits" : 1})
+
+3
