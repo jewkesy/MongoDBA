@@ -1,0 +1,70 @@
+$ mongo --shell localhost/performance ../handouts/performance.js 
+MongoDB shell version: 2.6.1
+connecting to: localhost/performance
+type "help" for help
+Server has startup warnings: 
+2014-05-21T08:29:24.458+0100 [initandlisten] 
+2014-05-21T08:29:24.458+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+2014-05-21T08:29:24.484+0100 [initandlisten] 
+2014-05-21T08:29:24.484+0100 [initandlisten] ** WARNING: mongod started without --replSet yet 1 documents are present in local.system.replset
+2014-05-21T08:29:24.484+0100 [initandlisten] **          Restart with --replSet unless you are doing maintenance and no other clients are connected.
+2014-05-21T08:29:24.484+0100 [initandlisten] **          The TTL collection monitor will not start because of this.
+2014-05-21T08:29:24.484+0100 [initandlisten] **          For more info see http://dochub.mongodb.org/core/ttlcollections
+2014-05-21T08:29:24.484+0100 [initandlisten] 
+> homework.init()
+{
+	"connectionId" : 2,
+	"n" : 0,
+	"syncMillis" : 0,
+	"writtenTo" : null,
+	"err" : null,
+	"ok" : 1
+}
+still working...
+{
+	"connectionId" : 2,
+	"updatedExisting" : true,
+	"n" : 20000,
+	"syncMillis" : 0,
+	"writtenTo" : null,
+	"err" : null,
+	"ok" : 1
+}
+count: 20000
+> use performance
+switched to db performance
+> show collections
+sensor_readings
+system.indexes
+>
+> db.sensor_readings.findOne()
+{
+	"_id" : 0,
+	"tstamp" : ISODate("2012-01-01T00:00:00Z"),
+	"active" : true,
+	"x" : 99,
+	"str" : "this is a test"
+}
+>
+> db.sensor_readings.getIndexes()
+[
+	{
+		"v" : 1,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_",
+		"ns" : "performance.sensor_readings"
+	}
+]
+>
+> db.sensor_readings.ensureIndex({"active": 1, "tstamp" : 1})
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+>
+> homework.a()
+6
