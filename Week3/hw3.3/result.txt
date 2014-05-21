@@ -1,0 +1,20 @@
+$ mongo --shell localhost/performance ../handouts/performance.js 
+MongoDB shell version: 2.6.1
+connecting to: localhost/performance
+type "help" for help
+Server has startup warnings: 
+2014-05-21T08:29:24.458+0100 [initandlisten] 
+2014-05-21T08:29:24.458+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+2014-05-21T08:29:24.484+0100 [initandlisten] 
+2014-05-21T08:29:24.484+0100 [initandlisten] ** WARNING: mongod started without --replSet yet 1 documents are present in local.system.replset
+2014-05-21T08:29:24.484+0100 [initandlisten] **          Restart with --replSet unless you are doing maintenance and no other clients are connected.
+2014-05-21T08:29:24.484+0100 [initandlisten] **          The TTL collection monitor will not start because of this.
+2014-05-21T08:29:24.484+0100 [initandlisten] **          For more info see http://dochub.mongodb.org/core/ttlcollections
+2014-05-21T08:29:24.484+0100 [initandlisten] 
+> 
+> 
+> db.runCommand({ compact: 'sensor_readings', paddingFactor: 1.0, force: true})
+{ "ok" : 1 }
+> homework.d()
+21
+> 
