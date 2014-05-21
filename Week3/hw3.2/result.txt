@@ -1,0 +1,54 @@
+$ mongo --shell localhost/performance ../handouts/performance.js 
+MongoDB shell version: 2.6.1
+connecting to: localhost/performance
+type "help" for help
+Server has startup warnings: 
+2014-05-21T08:29:24.458+0100 [initandlisten] 
+2014-05-21T08:29:24.458+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+2014-05-21T08:29:24.484+0100 [initandlisten] 
+2014-05-21T08:29:24.484+0100 [initandlisten] ** WARNING: mongod started without --replSet yet 1 documents are present in local.system.replset
+2014-05-21T08:29:24.484+0100 [initandlisten] **          Restart with --replSet unless you are doing maintenance and no other clients are connected.
+2014-05-21T08:29:24.484+0100 [initandlisten] **          The TTL collection monitor will not start because of this.
+2014-05-21T08:29:24.484+0100 [initandlisten] **          For more info see http://dochub.mongodb.org/core/ttlcollections
+2014-05-21T08:29:24.484+0100 [initandlisten] 
+> 
+> db.currentOp()
+{
+	"inprog" : [
+		{
+			"opid" : 60134,
+			"active" : true,
+			"secs_running" : 214,
+			"op" : "update",
+			"ns" : "performance.sensor_readings",
+			"query" : {
+				"$where" : "function(){sleep(500);return false;}"
+			},
+			"client" : "127.0.0.1:55926",
+			"desc" : "conn4",
+			"threadId" : "0x26c881000",
+			"connectionId" : 4,
+			"locks" : {
+				"^" : "w",
+				"^performance" : "W"
+			},
+			"waitingForLock" : false,
+			"numYields" : 428,
+			"lockStats" : {
+				"timeLockedMicros" : {
+					"r" : NumberLong(0),
+					"w" : NumberLong(428992495)
+				},
+				"timeAcquiringMicros" : {
+					"r" : NumberLong(0),
+					"w" : NumberLong(5965)
+				}
+			}
+		}
+	]
+}
+>
+> db.killOP(60134)
+{ "info" : "attempting to kill op" }
+> homework.c()
+12
