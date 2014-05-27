@@ -1,0 +1,42 @@
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/hw4.1/1/  --port 27001 --smallfiles --oplogSize 50 --replSet hw4_2
+
+mbp:~ Daryl$ mongo --port 27001 --shell ~/Documents/Training/MongoDBA/Week4/handouts/replication.js 
+MongoDB shell version: 2.6.1
+connecting to: 127.0.0.1:27001/test
+type "help" for help
+Server has startup warnings: 
+2014-05-27T18:43:24.157+0100 [initandlisten] 
+2014-05-27T18:43:24.157+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+> rs.initiate()
+{
+	"info2" : "no configuration explicitly specified -- making one",
+	"me" : "mbp.local:27001",
+	"info" : "Config now saved locally.  Should come online in about a minute.",
+	"ok" : 1
+}
+> use replication
+switched to db replication
+hw4_2:PRIMARY> db.foo.find()
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e1b"), "x" : 0, "y" : 0.6847421946004033 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e1c"), "x" : 1, "y" : 0.19086650433018804 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e1d"), "x" : 2, "y" : 0.4408894821535796 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e1e"), "x" : 3, "y" : 0.16374183678999543 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e1f"), "x" : 4, "y" : 0.7634492309298366 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e20"), "x" : 5, "y" : 0.6198081036563963 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e21"), "x" : 6, "y" : 0.3527590432204306 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e22"), "x" : 7, "y" : 0.6332666245289147 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e23"), "x" : 8, "y" : 0.23061856185086071 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e24"), "x" : 9, "y" : 0.5535049184691161 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e25"), "x" : 10, "y" : 0.5510338020976633 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e26"), "x" : 11, "y" : 0.19278322346508503 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e27"), "x" : 12, "y" : 0.32624832005240023 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e28"), "x" : 13, "y" : 0.26684004929848015 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e29"), "x" : 14, "y" : 0.5640152518171817 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e2a"), "x" : 15, "y" : 0.9040457094088197 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e2b"), "x" : 16, "y" : 0.8384962377604097 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e2c"), "x" : 17, "y" : 0.24545324547216296 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e2d"), "x" : 18, "y" : 0.1395948922727257 }
+{ "_id" : ObjectId("5384ce757f8cf5f22db61e2e"), "x" : 19, "y" : 0.2610937401186675 }
+Type "it" for more
+hw4_2:PRIMARY> homework.b()
+5002
