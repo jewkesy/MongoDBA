@@ -1,8 +1,8 @@
-mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/hw4.1/1/  --port 27001 --smallfiles --oplogSize 50 --replSet hw4_2
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/data/1/  --port 27001 --smallfiles --oplogSize 50 --replSet hw4_2
 
-mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/hw4.1/2/  --port 27002 --smallfiles --oplogSize 50 --replSet hw4_2
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/data/2/  --port 27002 --smallfiles --oplogSize 50 --replSet hw4_2
 
-mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/hw4.1/3/  --port 27003 --smallfiles --oplogSize 50 --replSet hw4_2
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/data/3/  --port 27003 --smallfiles --oplogSize 50 --replSet hw4_2
 
 mbp:~ Daryl$ mongo --port 27001 --shell ~/Documents/Training/MongoDBA/Week4/handouts/replication.js 
 MongoDB shell version: 2.6.1
