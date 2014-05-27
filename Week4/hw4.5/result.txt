@@ -1,0 +1,43 @@
+hw4_2:PRIMARY> ^C
+bye
+mbp:~ Daryl$ mongo --port 27003 --shell ~/Documents/Training/MongoDBA/Week4/handouts/replication.js 
+MongoDB shell version: 2.6.1
+connecting to: 127.0.0.1:27003/test
+type "help" for help
+Server has startup warnings: 
+2014-05-27T18:51:54.873+0100 [initandlisten] 
+2014-05-27T18:51:54.873+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+hw4_2:SECONDARY> 
+hw4_2:SECONDARY> show dbs
+admin        (empty)
+local        0.094GB
+replication  0.031GB
+hw4_2:SECONDARY> use local
+switched to db local
+hw4_2:SECONDARY> db.oplog.rs.find()
+{ "ts" : Timestamp(1401213292, 1), "h" : NumberLong("-2399554054536522764"), "v" : 2, "op" : "n", "ns" : "", "o" : { "msg" : "Reconfig set", "version" : 3 } }
+{ "ts" : Timestamp(1401213856, 1), "h" : NumberLong("-2622711853548629074"), "v" : 2, "op" : "n", "ns" : "", "o" : { "msg" : "Reconfig set", "version" : 4 } }
+hw4_2:SECONDARY> db.oplog.rs.stats()
+{
+	"ns" : "local.oplog.rs",
+	"count" : 2,
+	"size" : 200,
+	"avgObjSize" : 100,
+	"storageSize" : 52428800,
+	"numExtents" : 1,
+	"nindexes" : 0,
+	"lastExtentSize" : 52428800,
+	"paddingFactor" : 1,
+	"systemFlags" : 0,
+	"userFlags" : 0,
+	"totalIndexSize" : 0,
+	"indexSizes" : {
+		
+	},
+	"capped" : true,
+	"max" : NumberLong("9223372036854775807"),
+	"ok" : 1
+}
+hw4_2:SECONDARY> db.oplog.rs.find().sort({$natural:1}).limit(1).next().o.msg[0]
+R
+hw4_2:SECONDARY> 
