@@ -1,0 +1,13 @@
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/hw4.1/1/  --port 27001 --smallfiles --oplogSize 50
+
+mbp:~ Daryl$ mongo --port 27001 --shell ~/Documents/Training/MongoDBA/Week4/handouts/replication.js 
+MongoDB shell version: 2.6.1
+connecting to: 127.0.0.1:27001/test
+type "help" for help
+Server has startup warnings: 
+2014-05-27T18:41:10.794+0100 [initandlisten] 
+2014-05-27T18:41:10.794+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+> homework.init()
+ok
+> homework.a()
+5001
