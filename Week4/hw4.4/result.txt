@@ -1,0 +1,270 @@
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> rs.help()
+	rs.status()                     { replSetGetStatus : 1 } checks repl set status
+	rs.initiate()                   { replSetInitiate : null } initiates set with default settings
+	rs.initiate(cfg)                { replSetInitiate : cfg } initiates set with configuration cfg
+	rs.conf()                       get the current configuration object from local.system.replset
+	rs.reconfig(cfg)                updates the configuration of a running replica set with cfg (disconnects)
+	rs.add(hostportstr)             add a new member to the set with default attributes (disconnects)
+	rs.add(membercfgobj)            add a new member to the set with extra attributes (disconnects)
+	rs.addArb(hostportstr)          add a new member which is arbiterOnly:true (disconnects)
+	rs.stepDown([secs])             step down as primary (momentarily) (disconnects)
+	rs.syncFrom(hostportstr)        make a secondary to sync from the given member
+	rs.freeze(secs)                 make a node ineligible to become primary for the time specified
+	rs.remove(hostportstr)          remove a host from the replica set (disconnects)
+	rs.slaveOk()                    shorthand for db.getMongo().setSlaveOk()
+
+	rs.printReplicationInfo()       check oplog size and time range
+	rs.printSlaveReplicationInfo()  check replica set members and replication lag
+	db.isMaster()                   check who is primary
+
+	reconfiguration helpers disconnect from the database so the shell will display
+	an error, even if the command succeeds.
+	see also http://<mongod_host>:28017/_replSet for additional diagnostic info
+hw4_2:PRIMARY> rs.stepDown(300)
+2014-05-27T18:58:19.427+0100 DBClientCursor::init call() failed
+2014-05-27T18:58:19.428+0100 Error: error doing query: failed at src/mongo/shell/query.js:81
+2014-05-27T18:58:19.430+0100 trying reconnect to 127.0.0.1:27001 (127.0.0.1) failed
+2014-05-27T18:58:19.430+0100 reconnect 127.0.0.1:27001 (127.0.0.1) ok
+hw4_2:SECONDARY> 
+
+Ctrl-C
+
+2014-05-27T18:58:37.444+0100 [signalProcessingThread] shutdown: closing all files...
+2014-05-27T18:58:37.445+0100 [signalProcessingThread] closeAllFiles() finished
+2014-05-27T18:58:37.445+0100 [signalProcessingThread] journalCleanup...
+2014-05-27T18:58:37.445+0100 [signalProcessingThread] removeJournalFiles
+2014-05-27T18:58:37.445+0100 [signalProcessingThread] shutdown: removing fs lock...
+2014-05-27T18:58:37.445+0100 [signalProcessingThread] dbexit: really exiting now
+mbp:~ Daryl$ 
+
+
+
+mbp:~ Daryl$ mongo --port 27002 --shell ~/Documents/Training/MongoDBA/Week4/handouts/replication.js 
+MongoDB shell version: 2.6.1
+connecting to: 127.0.0.1:27002/test
+type "help" for help
+Server has startup warnings: 
+2014-05-27T18:51:35.281+0100 [initandlisten] 
+2014-05-27T18:51:35.281+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> rs.status()
+{
+	"set" : "hw4_2",
+	"date" : ISODate("2014-05-27T18:00:32Z"),
+	"myState" : 1,
+	"members" : [
+		{
+			"_id" : 0,
+			"name" : "mbp.local:27001",
+			"health" : 0,
+			"state" : 8,
+			"stateStr" : "(not reachable/healthy)",
+			"uptime" : 0,
+			"optime" : Timestamp(1401213292, 1),
+			"optimeDate" : ISODate("2014-05-27T17:54:52Z"),
+			"lastHeartbeat" : ISODate("2014-05-27T18:00:32Z"),
+			"lastHeartbeatRecv" : ISODate("2014-05-27T17:58:36Z"),
+			"pingMs" : 0,
+			"syncingTo" : "mbp.local:27002"
+		},
+		{
+			"_id" : 1,
+			"name" : "mbp.local:27002",
+			"health" : 1,
+			"state" : 1,
+			"stateStr" : "PRIMARY",
+			"uptime" : 537,
+			"optime" : Timestamp(1401213292, 1),
+			"optimeDate" : ISODate("2014-05-27T17:54:52Z"),
+			"electionTime" : Timestamp(1401213502, 1),
+			"electionDate" : ISODate("2014-05-27T17:58:22Z"),
+			"self" : true
+		},
+		{
+			"_id" : 2,
+			"name" : "mbp.local:27003",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 340,
+			"optime" : Timestamp(1401213292, 1),
+			"optimeDate" : ISODate("2014-05-27T17:54:52Z"),
+			"lastHeartbeat" : ISODate("2014-05-27T18:00:32Z"),
+			"lastHeartbeatRecv" : ISODate("2014-05-27T18:00:31Z"),
+			"pingMs" : 0,
+			"lastHeartbeatMessage" : "syncing to: mbp.local:27002",
+			"syncingTo" : "mbp.local:27002"
+		}
+	],
+	"ok" : 1
+}
+hw4_2:PRIMARY> my_array = ['a', 'b', 'c']
+[ "a", "b", "c" ]
+hw4_2:PRIMARY> my_array.shift()
+a
+hw4_2:PRIMARY> my_array
+[ "b", "c" ]
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> rs.conf()
+{
+	"_id" : "hw4_2",
+	"version" : 3,
+	"members" : [
+		{
+			"_id" : 0,
+			"host" : "mbp.local:27001"
+		},
+		{
+			"_id" : 1,
+			"host" : "mbp.local:27002"
+		},
+		{
+			"_id" : 2,
+			"host" : "mbp.local:27003"
+		}
+	]
+}
+hw4_2:PRIMARY> cfg = rs.conf()
+{
+	"_id" : "hw4_2",
+	"version" : 3,
+	"members" : [
+		{
+			"_id" : 0,
+			"host" : "mbp.local:27001"
+		},
+		{
+			"_id" : 1,
+			"host" : "mbp.local:27002"
+		},
+		{
+			"_id" : 2,
+			"host" : "mbp.local:27003"
+		}
+	]
+}
+hw4_2:PRIMARY> cfg.members.shift()
+{ "_id" : 0, "host" : "mbp.local:27001" }
+hw4_2:PRIMARY> rs.status()
+{
+	"set" : "hw4_2",
+	"date" : ISODate("2014-05-27T18:03:47Z"),
+	"myState" : 1,
+	"members" : [
+		{
+			"_id" : 0,
+			"name" : "mbp.local:27001",
+			"health" : 0,
+			"state" : 8,
+			"stateStr" : "(not reachable/healthy)",
+			"uptime" : 0,
+			"optime" : Timestamp(1401213292, 1),
+			"optimeDate" : ISODate("2014-05-27T17:54:52Z"),
+			"lastHeartbeat" : ISODate("2014-05-27T18:03:46Z"),
+			"lastHeartbeatRecv" : ISODate("2014-05-27T17:58:36Z"),
+			"pingMs" : 0,
+			"syncingTo" : "mbp.local:27002"
+		},
+		{
+			"_id" : 1,
+			"name" : "mbp.local:27002",
+			"health" : 1,
+			"state" : 1,
+			"stateStr" : "PRIMARY",
+			"uptime" : 732,
+			"optime" : Timestamp(1401213292, 1),
+			"optimeDate" : ISODate("2014-05-27T17:54:52Z"),
+			"electionTime" : Timestamp(1401213502, 1),
+			"electionDate" : ISODate("2014-05-27T17:58:22Z"),
+			"self" : true
+		},
+		{
+			"_id" : 2,
+			"name" : "mbp.local:27003",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 535,
+			"optime" : Timestamp(1401213292, 1),
+			"optimeDate" : ISODate("2014-05-27T17:54:52Z"),
+			"lastHeartbeat" : ISODate("2014-05-27T18:03:46Z"),
+			"lastHeartbeatRecv" : ISODate("2014-05-27T18:03:47Z"),
+			"pingMs" : 0,
+			"syncingTo" : "mbp.local:27002"
+		}
+	],
+	"ok" : 1
+}
+hw4_2:PRIMARY> rs.conf()
+{
+	"_id" : "hw4_2",
+	"version" : 3,
+	"members" : [
+		{
+			"_id" : 0,
+			"host" : "mbp.local:27001"
+		},
+		{
+			"_id" : 1,
+			"host" : "mbp.local:27002"
+		},
+		{
+			"_id" : 2,
+			"host" : "mbp.local:27003"
+		}
+	]
+}
+hw4_2:PRIMARY> rs.reconfig(cfg)
+2014-05-27T19:04:16.819+0100 DBClientCursor::init call() failed
+2014-05-27T19:04:16.821+0100 trying reconnect to 127.0.0.1:27002 (127.0.0.1) failed
+2014-05-27T19:04:16.821+0100 reconnect 127.0.0.1:27002 (127.0.0.1) ok
+reconnected to server after rs command (which is normal)
+
+hw4_2:PRIMARY> rs.status()
+{
+	"set" : "hw4_2",
+	"date" : ISODate("2014-05-27T18:04:26Z"),
+	"myState" : 1,
+	"members" : [
+		{
+			"_id" : 1,
+			"name" : "mbp.local:27002",
+			"health" : 1,
+			"state" : 1,
+			"stateStr" : "PRIMARY",
+			"uptime" : 771,
+			"optime" : Timestamp(1401213856, 1),
+			"optimeDate" : ISODate("2014-05-27T18:04:16Z"),
+			"electionTime" : Timestamp(1401213502, 1),
+			"electionDate" : ISODate("2014-05-27T17:58:22Z"),
+			"self" : true
+		},
+		{
+			"_id" : 2,
+			"name" : "mbp.local:27003",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 10,
+			"optime" : Timestamp(1401213856, 1),
+			"optimeDate" : ISODate("2014-05-27T18:04:16Z"),
+			"lastHeartbeat" : ISODate("2014-05-27T18:04:24Z"),
+			"lastHeartbeatRecv" : ISODate("2014-05-27T18:04:25Z"),
+			"pingMs" : 0,
+			"lastHeartbeatMessage" : "syncing to: mbp.local:27002",
+			"syncingTo" : "mbp.local:27002"
+		}
+	],
+	"ok" : 1
+}
+hw4_2:PRIMARY> homework.d()
+6

@@ -1,0 +1,56 @@
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/hw4.1/1/  --port 27001 --smallfiles --oplogSize 50 --replSet hw4_2
+
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/hw4.1/2/  --port 27002 --smallfiles --oplogSize 50 --replSet hw4_2
+
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week4/hw4.1/3/  --port 27003 --smallfiles --oplogSize 50 --replSet hw4_2
+
+mbp:~ Daryl$ mongo --port 27001 --shell ~/Documents/Training/MongoDBA/Week4/handouts/replication.js 
+MongoDB shell version: 2.6.1
+connecting to: 127.0.0.1:27001/test
+type "help" for help
+Server has startup warnings: 
+2014-05-27T18:43:24.157+0100 [initandlisten] 
+2014-05-27T18:43:24.157+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+hw4_2:PRIMARY> rs.status()
+{
+	"set" : "hw4_2",
+	"date" : ISODate("2014-05-27T17:53:02Z"),
+	"myState" : 1,
+	"members" : [
+		{
+			"_id" : 0,
+			"name" : "mbp.local:27001",
+			"health" : 1,
+			"state" : 1,
+			"stateStr" : "PRIMARY",
+			"uptime" : 578,
+			"optime" : Timestamp(1401212632, 1),
+			"optimeDate" : ISODate("2014-05-27T17:43:52Z"),
+			"electionTime" : Timestamp(1401212633, 1),
+			"electionDate" : ISODate("2014-05-27T17:43:53Z"),
+			"self" : true
+		}
+	],
+	"ok" : 1
+}
+hw4_2:PRIMARY> rs.add("localhost:27002")
+{
+	"errmsg" : "exception: can't use localhost in repl set member names except when using it for all members",
+	"code" : 13393,
+	"ok" : 0
+}
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> rs.add("mbp.local:27002")
+{ "ok" : 1 }
+hw4_2:PRIMARY> rs.slaveOk()
+hw4_2:PRIMARY> homework.c()
+something is wrong i don't see 3 members
+hw4_2:PRIMARY> rs.add("mbp.local:27003")
+{ "ok" : 1 }
+hw4_2:PRIMARY> rs.slaveOk()
+hw4_2:PRIMARY> homework.c()
+something isn't right yet. did you wait for the new members to finish synchronizing?
+8
+hw4_2:PRIMARY> 
+hw4_2:PRIMARY> homework.c()
+5
