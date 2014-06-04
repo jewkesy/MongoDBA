@@ -1,0 +1,114 @@
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week5/replData/1/  --port 27001 --smallfiles --oplogSize 50 --replSet hw5
+
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week5/replData/2/  --port 27002 --smallfiles --oplogSize 50 --replSet hw5
+
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week5/replData/3/  --port 27003 --smallfiles --oplogSize 50 --replSet hw5
+
+mbp:~ Daryl$ mongod --dbpath ~/Documents/Training/MongoDBA/Week5/replData/4/  --port 27004 --smallfiles --oplogSize 50 --replSet hw5
+
+mbp:~ Daryl$ mongo --port 27001
+
+MongoDB shell version: 2.6.1
+connecting to: 127.0.0.1:27001/test
+Server has startup warnings: 
+2014-06-04T14:34:39.008+0100 [initandlisten] 
+2014-06-04T14:34:39.008+0100 [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+> rs.initiate()
+{
+	"info2" : "no configuration explicitly specified -- making one",
+	"me" : "mbp.local:27001",
+	"info" : "Config now saved locally.  Should come online in about a minute.",
+	"ok" : 1
+}
+> rs.status()
+{
+	"set" : "hw5",
+	"date" : ISODate("2014-06-04T13:37:07Z"),
+	"myState" : 1,
+	"members" : [
+		{
+			"_id" : 0,
+			"name" : "mbp.local:27001",
+			"health" : 1,
+			"state" : 1,
+			"stateStr" : "PRIMARY",
+			"uptime" : 149,
+			"optime" : Timestamp(1401888985, 1),
+			"optimeDate" : ISODate("2014-06-04T13:36:25Z"),
+			"electionTime" : Timestamp(1401888986, 1),
+			"electionDate" : ISODate("2014-06-04T13:36:26Z"),
+			"self" : true
+		}
+	],
+	"ok" : 1
+}
+hw5:PRIMARY> rs.add("mbp.local:27002")
+{ "ok" : 1 }
+hw5:PRIMARY> rs.add("mbp.local:27003")
+{ "ok" : 1 }
+hw5:PRIMARY> rs.addArb("mbp.local:27004")
+{ "ok" : 1 }
+hw5:PRIMARY> rs.status()
+{
+	"set" : "hw5",
+	"date" : ISODate("2014-06-04T13:40:04Z"),
+	"myState" : 1,
+	"members" : [
+		{
+			"_id" : 0,
+			"name" : "mbp.local:27001",
+			"health" : 1,
+			"state" : 1,
+			"stateStr" : "PRIMARY",
+			"uptime" : 326,
+			"optime" : Timestamp(1401889194, 1),
+			"optimeDate" : ISODate("2014-06-04T13:39:54Z"),
+			"electionTime" : Timestamp(1401888986, 1),
+			"electionDate" : ISODate("2014-06-04T13:36:26Z"),
+			"self" : true
+		},
+		{
+			"_id" : 1,
+			"name" : "mbp.local:27002",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 134,
+			"optime" : Timestamp(1401889194, 1),
+			"optimeDate" : ISODate("2014-06-04T13:39:54Z"),
+			"lastHeartbeat" : ISODate("2014-06-04T13:40:02Z"),
+			"lastHeartbeatRecv" : ISODate("2014-06-04T13:40:03Z"),
+			"pingMs" : 0,
+			"syncingTo" : "mbp.local:27001"
+		},
+		{
+			"_id" : 2,
+			"name" : "mbp.local:27003",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 124,
+			"optime" : Timestamp(1401889194, 1),
+			"optimeDate" : ISODate("2014-06-04T13:39:54Z"),
+			"lastHeartbeat" : ISODate("2014-06-04T13:40:04Z"),
+			"lastHeartbeatRecv" : ISODate("2014-06-04T13:40:03Z"),
+			"pingMs" : 0,
+			"syncingTo" : "mbp.local:27001"
+		},
+		{
+			"_id" : 3,
+			"name" : "mbp.local:27004",
+			"health" : 1,
+			"state" : 7,
+			"stateStr" : "ARBITER",
+			"uptime" : 10,
+			"lastHeartbeat" : ISODate("2014-06-04T13:40:04Z"),
+			"lastHeartbeatRecv" : ISODate("2014-06-04T13:40:03Z"),
+			"pingMs" : 0
+		}
+	],
+	"ok" : 1
+}
+hw5:PRIMARY> 
+
+Answer:  7
