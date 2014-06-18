@@ -267,5 +267,5 @@ Question: which one of the following is the true statement about mongodb's opera
 
 	When 27003 came back up, it transmitted its write ops that the other members had not seen yet to those members so that they would have them also.
 
-	Mongo preserves the order of writes in a collection in its consistency model. In this problem, 27003's oplog was effectively a "fork" and to preserves write ordering a rollback was necessary during 27003's recovery phase.
+X	Mongo preserves the order of writes in a collection in its consistency model. In this problem, 27003's oplog was effectively a "fork" and to preserves write ordering a rollback was necessary during 27003's recovery phase.
 
