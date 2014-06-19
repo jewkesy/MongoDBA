@@ -52,3 +52,8 @@ mongos> sh.status()
 	{  "_id" : "test",  "partitioned" : false,  "primary" : "s1" }
 
 mongos> 
+mongos> use snps
+switched to db snps
+mongos> var x = db.elegans.aggregate( [ { $match : { N2 : "T" } } , { $group : { _id:"$N2" , n : { $sum : 1 } } } ] ).next(); print( x.n )
+47664
+mongos> 
